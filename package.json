@@ -1,0 +1,29 @@
+{
+  "name": "node-js-project-",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/shimaazz/Node-js-project-#readme",
+  "bugs": {
+    "url": "https://github.com/shimaazz/Node-js-project-/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shimaazz/Node-js-project-.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1",
+    "express-async-handler": "^1.2.0",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.3.2",
+    "nodemailer": "^8.0.3"
+  }
+}
