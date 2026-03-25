@@ -16,7 +16,7 @@ let database;
 async function startServer() {
   try {
     await client.connect();
-    console.log("✅ Connected to MongoDB Atlas");
+    console.log(" Connected to MongoDB Atlas");
 
     database = client.db("stack-overflow");
 
