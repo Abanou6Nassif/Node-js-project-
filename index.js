@@ -9,17 +9,14 @@ dns.setServers(["1.1.1.1", "1.0.0.1"]);
 const app = express();
 app.use(express.json());
 
-
-
 const port = process.env.PORT;
 const uri =
-  "mongodb+srv://team2:guKhaFulSJAsAvWG@cluster0.i7u5kme.mongodb.net/stackOver?appName=Cluster0";
-
+  "mongodb+srv://team2:guKhaFulSJAsAvWG@cluster0.i7u5kme.mongodb.net/stackOverflow?appName=Cluster0";
 
 async function startServer() {
   try {
     await mongoose.connect(uri);
-    console.log(" Connected to database");
+    console.log("Connected to database");
 
     app.listen(port, () => {
       console.log(`Server running on port ${port}`);
