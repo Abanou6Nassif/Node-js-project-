@@ -4,7 +4,7 @@ const voteSchema = new mongoose.Schema({
   user: {
     type: Schema.Types.ObjectId,
     required: true,
-    ref:"users"
+    ref:"user"
   },
   vote: {
     type: Number,
