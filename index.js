@@ -3,11 +3,15 @@ import express from "express";
 import mongoose from "mongoose";
 import dns from "node:dns/promises";
 
+import userRouter from "./routes/user.route.js";
+
 dotenv.config();
 dns.setServers(["1.1.1.1", "1.0.0.1"]);
 
 const app = express();
 app.use(express.json());
+
+app.use("/users", userRouter);
 
 const port = process.env.PORT;
 const uri =
