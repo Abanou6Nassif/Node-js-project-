@@ -37,9 +37,16 @@ const userSchema = new mongoose.Schema(
       enum: ["user", "admin"],
     },
     profile: {
-      filename: String,
-      path: String,
-      publicId: String,
+      type: {
+        filename: String,
+        path: String,
+        publicId: String,
+      },
+      default: {
+        filename: "default.png",
+        path: "https://secure.gravatar.com/avatar/default?s=90&d=identicon",
+        publicId: null,
+      },
     },
     OTP: { type: String },
     resetOTPExpiration: { type: Date },

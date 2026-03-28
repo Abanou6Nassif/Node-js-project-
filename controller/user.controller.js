@@ -16,7 +16,7 @@ export const signUp = async (req, res) => {
     if (user) {
       return res.status(404).json({ message: "User already exist" });
     }
-    let profileData = {};
+    let profileData ;
     if (req.file) {
       const result = await cloudinary.uploader.upload(req.file.path);
       profileData = {
