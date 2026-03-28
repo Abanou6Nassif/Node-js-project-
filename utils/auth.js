@@ -1,10 +1,11 @@
 import jwt from "jsonwebtoken";
 
-export const signToken = (id, email, secret) => {
+export const signToken = (id, email, userNumber, secret) => {
   return jwt.sign(
     {
       id,
       email,
+      userNumber,
     },
     secret,
     {
@@ -12,11 +13,12 @@ export const signToken = (id, email, secret) => {
     },
   );
 };
-export const signRefreshToken = (id, email, secret) => {
+export const signRefreshToken = (id, email, userNumber, secret) => {
   return jwt.sign(
     {
       id,
       email,
+      userNumber,
     },
     secret,
     {

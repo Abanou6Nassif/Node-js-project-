@@ -7,6 +7,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       minLength: 3,
       required: true,
+      trim: true,
     },
     userNumber: {
       type: Number,
@@ -16,6 +17,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
       unique: true,
+      trim: true,
       validate: {
         validator: function (value) {
           return /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/.test(value);
@@ -34,13 +36,15 @@ const userSchema = new mongoose.Schema(
       default: "user",
       enum: ["user", "admin"],
     },
-    profilePhoto: {
-      type: String,
-      default: function () {
-        return `https://secure.gravatar.com/avatar/${this._id}?s=90&d=identicon`;
-      },
+    profile: {
+      filename: String,
+      path: String,
+      publicId: String,
     },
+    OTP: { type: String },
+    resetOTPExpiration: { type: Date },
   },
+
   {
     timestamps: true,
   },

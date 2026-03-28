@@ -2,7 +2,6 @@ import dotenv from "dotenv";
 import express from "express";
 import mongoose from "mongoose";
 import dns from "node:dns/promises";
-
 import userRouter from "./routes/user.route.js";
 
 dotenv.config();
