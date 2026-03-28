@@ -5,12 +5,12 @@ import commentSchema from "./comment.model.js";
 const answerSchema = new mongoose.Schema(
   {
     author: {
-      type: Schema.Types.ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
       ref: "user",
       required: true,
     },
     question: {
-      type: Schema.Types.ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
       ref: "question",
       required: true,
     },
