@@ -13,6 +13,6 @@ router.get("/:questId", getAllAnswers);
 //***check with the other team members  whether allowedTo() is needed here or can be omitted.
 router.post("/:questId", auth, allowedTo("user"), addAnswer);
 router.post("/:questId/:answerId", auth, allowedTo("user"), editAnswer);
-router.post("/:questId/:answerId", auth, allowedTo("user"), deleteAnswer);
+router.post("/:questId/delete/:answerId", auth, allowedTo("user"), deleteAnswer);
 
 export default router;
