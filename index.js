@@ -3,6 +3,8 @@ import express from "express";
 import mongoose from "mongoose";
 import dns from "node:dns/promises";
 import userRouter from "./routes/user.route.js";
+import questionRouter from "./routes/question.route.js"
+import answerRouter from "./routes/answer.route.js"
 
 dotenv.config();
 dns.setServers(["1.1.1.1", "1.0.0.1"]);
@@ -12,6 +14,7 @@ app.use(express.json());
 
 app.use("/users", userRouter);
 app.use("/questions", questionRouter);
+app.use("/answers", answerRouter);
 
 const port = process.env.PORT;
 const uri =
@@ -30,4 +33,11 @@ async function startServer() {
   }
 }
 
+app.use((err, req, res, next) => {
+  let statusCode = err.statusCode || 500;
+  let message =
+    err.message ||
+    "500 Internal Server Error: The server encountered an unexpected condition.";
+  res.status(statusCode).json({ Error: message });
+});
 startServer();
