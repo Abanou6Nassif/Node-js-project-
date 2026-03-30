@@ -3,8 +3,9 @@ import express from "express";
 import mongoose from "mongoose";
 import dns from "node:dns/promises";
 import userRouter from "./routes/user.route.js";
-import questionRouter from "./routes/question.route.js"
-import answerRouter from "./routes/answer.route.js"
+import questionRouter from "./routes/question.route.js";
+import answerRouter from "./routes/answer.route.js";
+import commentsRouter from "./routes/comments.route.js";
 
 dotenv.config();
 dns.setServers(["1.1.1.1", "1.0.0.1"]);
@@ -15,6 +16,7 @@ app.use(express.json());
 app.use("/users", userRouter);
 app.use("/questions", questionRouter);
 app.use("/answers", answerRouter);
+app.use("/comments", commentsRouter);
 
 const port = process.env.PORT;
 const uri =
