@@ -6,6 +6,8 @@ import userRouter from "./routes/user.route.js";
 import questionRouter from "./routes/question.route.js";
 import answerRouter from "./routes/answer.route.js";
 import commentsRouter from "./routes/comments.route.js";
+import voteRouter from "./routes/vote.route.js";
+
 
 dotenv.config();
 dns.setServers(["1.1.1.1", "1.0.0.1"]);
@@ -17,6 +19,7 @@ app.use("/users", userRouter);
 app.use("/questions", questionRouter);
 app.use("/answers", answerRouter);
 app.use("/comments", commentsRouter);
+app.use("/votes", voteRouter);
 
 const port = process.env.PORT;
 const uri =
