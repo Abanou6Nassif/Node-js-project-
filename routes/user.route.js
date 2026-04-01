@@ -23,6 +23,6 @@ router.delete("/:id", auth, deleteUser);
 router.post("/forgotpassword", forgotPassword);
 router.post("/resetpassword", resetPassword);
 router.get("/", auth, allowedTo("admin"), getAllUsers);
-router.get("/:id", auth, getUser);
+router.get("/:id", getUser);
 
 export default router;

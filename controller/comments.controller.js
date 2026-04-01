@@ -54,15 +54,13 @@ export const getComments = async (req, res) => {
     let doc;
 
     if (type === "question") {
-      doc = await questionModel.findById(id).populate(
-        "comments.author",
-        "userName"
-      );
+      doc = await questionModel
+        .findById(id)
+        .populate("comments.author", "userName");
     } else {
-      doc = await answerModel.findById(id).populate(
-        "comments.author",
-        "userName"
-      );
+      doc = await answerModel
+        .findById(id)
+        .populate("comments.author", "userName");
     }
 
     if (!doc) {
@@ -104,11 +102,10 @@ export const updateComment = async (req, res) => {
     if (!comment) {
       return res.status(404).json({ message: "Comment not found" });
     }
-    if (comment.author.toString()!= req.id) {
+    if (comment.author.toString() != req.id) {
       return res.status(403).json({ message: "Forbidden" });
     }
-    if(body)
-    comment.body = body 
+    if (body) comment.body = body;
 
     await doc.save();
 
@@ -120,7 +117,6 @@ export const updateComment = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
-
 
 export const deleteComment = async (req, res) => {
   try {
@@ -152,7 +148,7 @@ export const deleteComment = async (req, res) => {
       return res.status(403).json({ message: "Forbidden" });
     }
 
-    comment.deleteOne(); 
+    comment.deleteOne();
 
     await doc.save();
 

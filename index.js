@@ -8,7 +8,6 @@ import answerRouter from "./routes/answer.route.js";
 import commentsRouter from "./routes/comments.route.js";
 import voteRouter from "./routes/vote.route.js";
 
-
 dotenv.config();
 dns.setServers(["1.1.1.1", "1.0.0.1"]);
 
@@ -39,10 +38,27 @@ async function startServer() {
 }
 
 app.use((err, req, res, next) => {
-  let statusCode = err.statusCode || 500;
+  if (err.name === "ValidationError") {
+    const messages = Object.values(err.errors).map((e) => e.message);
+
+    return res.status(400).json({
+      status: "ValidationError",
+      errors: messages,
+    });
+  }
+  if (err.name === "TokenExpiredError") {
+    statusCode = 401;
+    message = "Token expired. Please login again.";
+  }
+
+  if (err.name === "JsonWebTokenError") {
+    statusCode = 401;
+    message = "Invalid token. Please login again.";
+  }
+  let statusCode = Number(err.statusCode) || 500;
   let message =
     err.message ||
     "500 Internal Server Error: The server encountered an unexpected condition.";
-  res.status(statusCode).json({ Error: message });
+  res.status(statusCode).json({ status: "error", message });
 });
 startServer();
