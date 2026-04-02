@@ -15,27 +15,17 @@ export const voteQuestion = async (req, res) => {
 
     const userId = new mongoose.Types.ObjectId(req.id);
     const userIdStr = req.id;
-    const io = req.app.get("io"); // ✅ هنا
+    const io = req.app.get("io");
 
-    const existing = question.votes.find(v => v.user.toString() === userIdStr);
-
-    // const sendNotify = async () => {
-        
-    //   if (question.author && question.author.toString() !== userIdStr) {
-    //     await notify({
-    //       receiverId: question.author.toString(),
-    //       senderId: userIdStr,
-    //       type: "vote",
-    //       message: "Someone voted on your question",
-    //       meta: { questionId: question._id },
-    //       io, // ✅ مررها
-    //     });
-    //   }
-    // };
+    const existing = question.votes.find(
+      (v) => v.user.toString() === userIdStr,
+    );
 
     const removeVote = () => {
       question.score -= existing.vote;
-      question.votes = question.votes.filter(v => v.user.toString() !== userIdStr);
+      question.votes = question.votes.filter(
+        (v) => v.user.toString() !== userIdStr,
+      );
     };
 
     if (existing) {
@@ -50,7 +40,7 @@ export const voteQuestion = async (req, res) => {
       question.votes.push({ user: userId, vote });
       question.score += vote;
       await question.save();
-    //   await sendNotify();
+      //   await sendNotify();
       return res.json({ message: "Vote updated", score: question.score });
     }
 
@@ -62,7 +52,6 @@ export const voteQuestion = async (req, res) => {
     await question.save();
     // await sendNotify();
     return res.json({ message: "Vote added", score: question.score });
-
   } catch (err) {
     res.status(500).json({ message: "Server error", err: err.message });
   }
@@ -84,14 +73,12 @@ export const voteAnswer = async (req, res) => {
     const userId = new mongoose.Types.ObjectId(req.id);
     const userIdStr = req.id;
 
-    const existing = answer.votes.find(
-      (v) => v.user.toString() === userIdStr
-    );
+    const existing = answer.votes.find((v) => v.user.toString() === userIdStr);
 
     const removeVote = () => {
       answer.score -= existing.vote;
       answer.votes = answer.votes.filter(
-        (v) => v.user.toString() !== userIdStr
+        (v) => v.user.toString() !== userIdStr,
       );
     };
 
@@ -117,7 +104,6 @@ export const voteAnswer = async (req, res) => {
     answer.score += vote;
     await answer.save();
     return res.json({ message: "Vote added", score: answer.score });
-
   } catch (err) {
     console.log("VOTE ANSWER ERROR:", err);
     res.status(500).json({ message: "Server error", err: err.message });
