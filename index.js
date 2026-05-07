@@ -21,9 +21,7 @@ app.use("/comments", commentsRouter);
 app.use("/votes", voteRouter);
 
 const port = process.env.PORT;
-const uri =
-  "mongodb+srv://team2:guKhaFulSJAsAvWG@cluster0.i7u5kme.mongodb.net/stackOverflow?appName=Cluster0";
-
+const uri = process.env.DATABASE_LINK
 async function startServer() {
   try {
     await mongoose.connect(uri);

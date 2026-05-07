@@ -67,6 +67,7 @@ Create a `.env` file in the project root and add the following values:
 
 ```env
 PORT=3000
+DATABASE_LINK=your_mongodb_connection_string
 JWT_SECRET=your_access_token_secret
 JWT_REFRESH_SECRET=your_refresh_token_secret
 
@@ -82,8 +83,8 @@ CLOUDINARY_SECRET_KEY=your_api_secret
 
 Notes:
 
-- The app currently connects to a MongoDB Atlas URI inside `index.js`.
-- If you want to use another database, update the connection string in `index.js`.
+- The app reads the MongoDB connection string from `DATABASE_LINK` in `index.js`.
+- If you want to use another database, update the `DATABASE_LINK` value in your `.env` file.
 - The `PORT` environment variable is required.
 
 ## Run the Project
