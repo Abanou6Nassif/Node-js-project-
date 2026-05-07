@@ -61,4 +61,6 @@ app.use((err, req, res, next) => {
     "500 Internal Server Error: The server encountered an unexpected condition.";
   res.status(statusCode).json({ status: "error", message });
 });
+
+//Starting the server
 startServer();
