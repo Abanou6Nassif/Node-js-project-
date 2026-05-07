@@ -65,9 +65,16 @@ export const voteAnswer = async (req, res) => {
       return res.status(400).json({ message: "Invalid vote value" });
     }
 
-    const answer = await Answer.findById(req.params.id);
+    const { questionId, answerId } = req.params;
+    const answer = await Answer.findById(answerId);
     if (!answer) {
       return res.status(404).json({ message: "Answer not found" });
+    }
+
+    if (answer.question.toString() !== questionId) {
+      return res.status(400).json({
+        message: "Bad request, the answer should be related to that question",
+      });
     }
 
     const userId = new mongoose.Types.ObjectId(req.id);

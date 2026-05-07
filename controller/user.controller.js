@@ -249,11 +249,13 @@ export const getAllUsers = asyncHandler(async (req, res,next) => {
   res.status(200).json({ message: "success", data: users });
 });
 
-export const getUser = asyncHandler(async (req, res) => {
+export const getUser = asyncHandler(async (req, res, next) => {
   let { id } = req.params;
-  let user = await userModel.findById(id).select("userName email userNumber profile");;
+  let user = await userModel
+    .findById(id)
+    .select("userName email userNumber profile");
   if (!user) {
-    return next(new appError(404,"User not found"));
+    return next(new appError(404, "User not found"));
   }
   res.status(200).json({ message: "success", data: user });
 });

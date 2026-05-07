@@ -45,7 +45,7 @@ export const getAllQuestions = async (req, res) => {
     if (sort === "votes") sortOption = { score: -1 };
 
     const questions = await Question.find(query)
-      .populate("author", "username")
+      .populate("author", "userName")
       .sort(sortOption);
 
     res.json({
@@ -60,14 +60,14 @@ export const getAllQuestions = async (req, res) => {
 export const getSingleQuestion = async (req, res) => {
   try {
     const question = await Question.findById(req.params.id)
-      .populate("author", "username");
+      .populate("author", "userName");
 
     if (!question) {
       return res.status(404).json({ message: "Not found" });
     }
 
     const answers = await Answer.find({ question: req.params.id })
-      .populate("author", "username")
+      .populate("author", "userName")
       .sort({ score: -1 });
 
     res.json({ question, answers });

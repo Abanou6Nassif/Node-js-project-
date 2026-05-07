@@ -101,6 +101,7 @@ The server will start on the port defined in `PORT`.
 - The current middleware reads the header value directly, so send the raw token rather than `Bearer <token>`.
 - Access tokens expire in 1 hour.
 - Refresh tokens expire in 1 year.
+- Question updates and deletes require authentication, and the controller checks that the current user owns the question.
 
 ## Main Entities
 
@@ -270,8 +271,8 @@ Body:
 | POST | `/questions` | Authenticated | Create a question |
 | GET | `/questions` | Public | List questions with search and sorting |
 | GET | `/questions/:id` | Public | Get a single question with its answers |
-| PUT | `/questions/:id` | Authenticated, author only | Update a question |
-| DELETE | `/questions/:id` | Authenticated, author only | Delete a question |
+| PUT | `/questions/:id` | Authenticated | Update a question if you own it |
+| DELETE | `/questions/:id` | Authenticated | Delete a question if you own it |
 
 #### Create Question
 
