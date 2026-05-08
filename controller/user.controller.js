@@ -95,13 +95,10 @@ export const refreshToken = asyncHandler(async (req, res, next) => {
 export const updateUser = asyncHandler(async (req, res, next) => {
   let { id } = req.params;
   const { userName, password, oldPassword } = req.body;
-  // console.log(id +" iddddd " + req.id)
-  if (req.role != "admin") {
-    if (id != req.id) {
-      return next(
-        new appError(403, "Forbidden: You can only update your own profile"),
-      );
-    }
+  if (id != req.id) {
+    return next(
+      new appError(403, "Forbidden: You can only update your own profile"),
+    );
   }
   let user = await userModel.findById(id);
   if (!user) return next(new appError(404, "User not found"));

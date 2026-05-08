@@ -95,7 +95,7 @@ export const deleteAnswer = catchError(async (req, res) => {
       "Bad request, the answer should be related to that question",
     );
 
-  if (!answer.author.equals(userId))
+  if (!answer.author.equals(userId) && req.role !== "admin")
     throw new appError(403, "You're not authorized");
   answer = await answerModel.findByIdAndDelete(answerId);
   res.status(204).end();

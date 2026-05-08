@@ -102,7 +102,7 @@ export const updateComment = async (req, res) => {
     if (!comment) {
       return res.status(404).json({ message: "Comment not found" });
     }
-    if (comment.author.toString() != req.id) {
+    if (comment.author.toString() != req.id && req.role !== "admin") {
       return res.status(403).json({ message: "Forbidden" });
     }
     if (body) comment.body = body;

@@ -19,7 +19,7 @@ router.post("/signup", upload.single("profilePhoto"), signUp);
 router.post("/login", logIn);
 router.post("/refreshtoken", refreshToken);
 router.patch("/:id", auth, upload.single("profilePhoto"), updateUser);
-router.delete("/:id", auth, deleteUser);
+router.delete("/:id", auth, allowedTo("user", "admin"), deleteUser);
 router.post("/forgotpassword", forgotPassword);
 router.post("/resetpassword", resetPassword);
 router.get("/", auth, allowedTo("admin"), getAllUsers);

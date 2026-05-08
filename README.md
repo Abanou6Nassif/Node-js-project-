@@ -101,7 +101,9 @@ The server will start on the port defined in `PORT`.
 - The current middleware reads the header value directly, so send the raw token rather than `Bearer <token>`.
 - Access tokens expire in 1 hour.
 - Refresh tokens expire in 1 year.
-- Question updates and deletes require authentication, and the controller checks that the current user owns the question.
+- Profile updates are owner-only.
+- Questions, answers, comments, and user accounts can be deleted by their owner, and admins can also delete them.
+- Question, answer, and comment updates remain owner-only.
 
 ## Main Entities
 
@@ -160,8 +162,8 @@ The server will start on the port defined in `PORT`.
 | POST | `/users/signup` | Public | Create a new user and optionally upload a profile photo |
 | POST | `/users/login` | Public | Login with email and password |
 | POST | `/users/refreshtoken` | Public | Generate a new access token using a refresh token |
-| PATCH | `/users/:id` | Authenticated | Update profile data, password, or profile photo |
-| DELETE | `/users/:id` | Authenticated | Delete a user account |
+| PATCH | `/users/:id` | Authenticated, owner only | Update profile data, password, or profile photo |
+| DELETE | `/users/:id` | Authenticated, owner or admin | Delete a user account |
 | POST | `/users/forgotpassword` | Public | Send OTP to email for password reset |
 | POST | `/users/resetpassword` | Public | Reset password using OTP |
 | GET | `/users` | Admin only | Get all users |
@@ -271,8 +273,8 @@ Body:
 | POST | `/questions` | Authenticated | Create a question |
 | GET | `/questions` | Public | List questions with search and sorting |
 | GET | `/questions/:id` | Public | Get a single question with its answers |
-| PUT | `/questions/:id` | Authenticated | Update a question if you own it |
-| DELETE | `/questions/:id` | Authenticated | Delete a question if you own it |
+| PUT | `/questions/:id` | Authenticated, owner only | Update a question if you own it |
+| DELETE | `/questions/:id` | Authenticated, owner or admin | Delete a question if you own it |
 
 #### Create Question
 
@@ -324,8 +326,8 @@ Body can include any of:
 | --- | --- | --- | --- |
 | GET | `/answers/:questId` | Public | Get all answers for a question |
 | POST | `/answers/:questId` | Authenticated | Add an answer to a question |
-| PATCH | `/answers/:questId/:answerId` | Authenticated, author only | Edit an answer |
-| DELETE | `/answers/:questId/delete/:answerId` | Authenticated, author only | Delete an answer |
+| PATCH | `/answers/:questId/:answerId` | Authenticated, owner only | Edit an answer |
+| DELETE | `/answers/:questId/delete/:answerId` | Authenticated, owner or admin | Delete an answer |
 
 #### Add Answer
 
@@ -358,7 +360,7 @@ Body:
 | POST | `/comments/:type/:id` | Authenticated | Add a comment to a question or answer |
 | GET | `/comments/:type/:id` | Public | Get comments for a question or answer |
 | PATCH | `/comments/:type/:parentId/:commentId` | Authenticated, owner only | Update a comment |
-| DELETE | `/comments/:type/:parentId/:commentId` | Authenticated, owner only | Delete a comment |
+| DELETE | `/comments/:type/:parentId/:commentId` | Authenticated, owner or admin | Delete a comment |
 
 `type` must be either `question` or `answer`.
 

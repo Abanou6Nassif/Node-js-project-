@@ -108,7 +108,7 @@ export const deleteQuestion = async (req, res) => {
       return res.status(404).json({ message: "Not found" });
     }
 
-    if (question.author.toString() !== req.id) {
+    if (question.author.toString() !== req.id && req.role !== "admin") {
       return res.status(403).json({ message: "Forbidden" });
     }
 
